@@ -1,9 +1,12 @@
+//speed is the frequency in milliseconds of how often game updates cell
+//ticker is object tied to setInterval
+//size is board size
 var direction = 'right',
-    speed = 100,
+    speed = 20,
     ticker = null,
     fruitCell = [],
     score = 0,
-    size = 40;
+    size = 20;
 var snakeCells = [
     [10, 14],
     [10, 13],
