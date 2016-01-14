@@ -34,6 +34,7 @@ function gameOver() {
             top: 250
         }, 'slow');
     });
+
     clearInterval(ticker);
 }
 
@@ -56,37 +57,31 @@ function updateSnakeCell() {
     var newCell = {
         length: 0
     }
-    if (snakeNewHead[0] < 0 || snakeNewHead[1] < 0) {
-        gameOver();
-        return;
-    } else if (snakeNewHead[0] >= size || snakeNewHead[1] >= size) {
-        gameOver();
-        return;
-    }
+    if (snakeNewHead[0] < 0 || snakeNewHead[1] < 0 || snakeNewHead[0] >= size || snakeNewHead[1] >= size) {
+        return gameOver();
+    } 
     var newCell = $('tr').eq(snakeNewHead[0]).find('td').eq(snakeNewHead[1]);
-    if (newCell.length == 0) {
-        gameOver();
-    } else {
-        if (newCell.hasClass('snakeCell')) {
-            gameOver();
-        } else {
-            if (newCell.hasClass('fruitCell')) {
-                snakeCells.push([]);
-                getFruitCell();
-                renderFruitCell();
-                score += 100;
-                $('#scoreBoard').html('Your Score : ' + score);
-                // speed = speed - 10 > 5 ? speed - 10 : speed;
-                clearInterval(ticker);
-                startGame();
-            }
-            for (var i = (snakeCells.length - 1); i > 0; i--) {
-                snakeCells[i] = snakeCells[i - 1];
-            }
-            snakeCells[0] = snakeHead = snakeNewHead;
-            renderSnake();
-        }
+    if (newCell.length == 0 || newCell.hasClass('snakeCell')) {
+        return gameOver();
+    } 
+
+    if (newCell.hasClass('fruitCell')) {
+        snakeCells.push([]);
+        getFruitCell();
+        renderFruitCell();
+        score += 100;
+        $('#scoreBoard').html('Your Score : ' + score);
+        // speed = speed - 10 > 5 ? speed - 10 : speed;
+        clearInterval(ticker);
+        startGame();
     }
+
+    for (var i = (snakeCells.length - 1); i > 0; i--) {
+        snakeCells[i] = snakeCells[i - 1];
+    }
+    snakeCells[0] = snakeHead = snakeNewHead;
+    renderSnake();
+   
 }
 
 function getRandomNumber(limit) {
