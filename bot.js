@@ -17,8 +17,6 @@
     renderFruitCell();
     direction = dirs[m];
     $('div.gameOver')['hide']()['css']('top', 0);
-    score = 0;
-    speed = 100;
 
     // reset the snake
     snakeHead = [10, i = 14];
